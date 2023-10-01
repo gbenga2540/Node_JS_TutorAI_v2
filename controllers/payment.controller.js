@@ -5,6 +5,7 @@ const User = require('../models/user.model');
 const { AdminVar } = require('../models/admin_var.model');
 const { Pricing } = require('../models/pricing.model');
 const paypal = require('../config/paypal.config');
+const PaymentHistory = require('../models/payment_history.model');
 
 const stripeIntent = async (req, res) => {
     const { userPlan } = req.body;
@@ -25,7 +26,22 @@ const stripeIntent = async (req, res) => {
                 },
                 description: `$${user_plan?.raw} paid by ${user?.fullname} for ${user_plan?.no_of_lessons} TutorAI Lessons.`,
             });
-            res.status(200).json(payment_intent?.client_secret);
+
+            const pHistory = new PaymentHistory({
+                email: user.email,
+                fullName: user.fullname,
+                method: 'Stripe',
+                lessons: user_plan?.no_of_lessons,
+                price: user_plan?.raw,
+                status: 'Pending',
+                description: `$${user_plan?.raw} paid by ${user?.fullname} for ${user_plan?.no_of_lessons} TutorAI Lessons.`,
+            });
+            const p_history = await pHistory.save();
+
+            res.status(200).json({
+                cl_secret: payment_intent?.client_secret,
+                p_history,
+            });
         };
 
         const user = await User.findById(req.user.id);
@@ -91,16 +107,29 @@ const paypalIntent = async (req, res) => {
             ],
         };
 
+        const pHistory = new PaymentHistory({
+            email: user.email,
+            fullName: user.fullname,
+            method: 'Paypal',
+            lessons: user_plan?.no_of_lessons,
+            price: user_plan?.raw,
+            status: 'Pending',
+            description: `$${user_plan?.raw} paid by ${user?.fullname} for ${user_plan?.no_of_lessons} TutorAI Lessons.`,
+        });
+        const p_history = await pHistory.save();
+
         paypal.payment.create(create_payment_json, (error, payment) => {
             if (error) {
                 res.status(500).json(
                     error?.response?.message || 'An Error Occured',
                 );
             } else {
-                res.status(200).json(
-                    payment.links.find(link => link.rel === 'approval_url')
-                        .href,
-                );
+                res.status(200).json({
+                    cl_secret: payment.links.find(
+                        link => link.rel === 'approval_url',
+                    ).href,
+                    p_history,
+                });
             }
         });
     } catch (err) {
@@ -162,7 +191,23 @@ const planUpgradeStripeIntent = async (req, res) => {
                 },
                 description: `$${amountToPay} paid by ${user?.fullname} for Study Plan Upgrade (60-minute plan).`,
             });
-            res.status(200).json(payment_intent?.client_secret);
+
+            const pHistory = new PaymentHistory({
+                email: user.email,
+                fullName: user.fullname,
+                method: 'Stripe',
+                lessons: 0,
+                price: amountToPay,
+                status: 'Pending',
+                description: `$${amountToPay} paid by ${user?.fullname} for Study Plan Upgrade (60-minute plan).`,
+            });
+
+            const p_history = await pHistory.save();
+
+            res.status(200).json({
+                cl_secret: payment_intent?.client_secret,
+                p_history,
+            });
         };
 
         const existingCustomers = await stripe.customers.list({
@@ -231,19 +276,52 @@ const planUpgradePaypalIntent = async (req, res) => {
             ],
         };
 
+        const pHistory = new PaymentHistory({
+            email: user.email,
+            fullName: user.fullname,
+            method: 'Paypal',
+            lessons: 0,
+            price: amountToPay,
+            status: 'Pending',
+            description: `$${amountToPay} paid by ${user?.fullname} for Study Plan Upgrade (60-minute plan).`,
+        });
+        const p_history = await pHistory.save();
+
         paypal.payment.create(create_payment_json, (error, payment) => {
             if (error) {
                 res.status(500).json(
                     error?.response?.message || 'An Error Occured',
                 );
             } else {
-                res.status(200).json(
-                    payment.links.find(link => link.rel === 'approval_url')
-                        .href,
-                );
+                res.status(200).json({
+                    cl_secret: payment.links.find(
+                        link => link.rel === 'approval_url',
+                    ).href,
+                    p_history,
+                });
             }
         });
     } catch (err) {
+        res.status(500).json(err?.message || 'An Error Occured!');
+    }
+};
+
+const updatePaymentHistory = async (req, res) => {
+    try {
+        const ph_id = req.body.ph_id;
+        const pHistory = await PaymentHistory.findById(ph_id);
+
+        console.log(ph_id);
+
+        if (!pHistory) {
+            res.status(200).json({ message: 'ID Not Found!' });
+        } else {
+            pHistory.status = 'Completed';
+            await pHistory.save();
+            res.status(200).json({ message: 'Updated successfully!' });
+        }
+    } catch (err) {
+        console.log(err);
         res.status(500).json(err?.message || 'An Error Occured!');
     }
 };
@@ -296,4 +374,5 @@ module.exports = {
     paypalSuccess,
     planUpgradePaypalIntent,
     planUpgradeStripeIntent,
+    updatePaymentHistory,
 };
