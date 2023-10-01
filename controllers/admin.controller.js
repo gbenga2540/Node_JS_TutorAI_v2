@@ -196,11 +196,14 @@ const newSignup = async (req, res) => {
                     {
                         $match: {
                             fullname: {
-                                $regex: name_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    name_search?.toLowerCase()?.trim() || '',
                                 $options: 'i',
                             },
                             language: {
-                                $regex: language_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    language_search?.toLowerCase()?.trim() ||
+                                    '',
                                 $options: 'i',
                             },
                             payment: { $gte: pSubscription },
@@ -230,11 +233,14 @@ const newSignup = async (req, res) => {
                     {
                         $match: {
                             fullname: {
-                                $regex: name_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    name_search?.toLowerCase()?.trim() || '',
                                 $options: 'i',
                             },
                             language: {
-                                $regex: language_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    language_search?.toLowerCase()?.trim() ||
+                                    '',
                                 $options: 'i',
                             },
                             payment: { $gte: pSubscription },
@@ -265,11 +271,14 @@ const newSignup = async (req, res) => {
                     {
                         $match: {
                             fullname: {
-                                $regex: name_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    name_search?.toLowerCase()?.trim() || '',
                                 $options: 'i',
                             },
                             language: {
-                                $regex: language_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    language_search?.toLowerCase()?.trim() ||
+                                    '',
                                 $options: 'i',
                             },
                             payment: { $gte: pSubscription },
@@ -298,11 +307,14 @@ const newSignup = async (req, res) => {
                     {
                         $match: {
                             fullname: {
-                                $regex: name_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    name_search?.toLowerCase()?.trim() || '',
                                 $options: 'i',
                             },
                             language: {
-                                $regex: language_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    language_search?.toLowerCase()?.trim() ||
+                                    '',
                                 $options: 'i',
                             },
                             payment: { $gte: pSubscription },
@@ -355,11 +367,14 @@ const subscribers = async (req, res) => {
                     {
                         $match: {
                             fullname: {
-                                $regex: name_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    name_search?.toLowerCase()?.trim() || '',
                                 $options: 'i',
                             },
                             language: {
-                                $regex: language_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    language_search?.toLowerCase()?.trim() ||
+                                    '',
                                 $options: 'i',
                             },
                             $and: [
@@ -392,11 +407,14 @@ const subscribers = async (req, res) => {
                     {
                         $match: {
                             fullname: {
-                                $regex: name_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    name_search?.toLowerCase()?.trim() || '',
                                 $options: 'i',
                             },
                             language: {
-                                $regex: language_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    language_search?.toLowerCase()?.trim() ||
+                                    '',
                                 $options: 'i',
                             },
                             $and: [
@@ -430,11 +448,14 @@ const subscribers = async (req, res) => {
                     {
                         $match: {
                             fullname: {
-                                $regex: name_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    name_search?.toLowerCase()?.trim() || '',
                                 $options: 'i',
                             },
                             language: {
-                                $regex: language_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    language_search?.toLowerCase()?.trim() ||
+                                    '',
                                 $options: 'i',
                             },
                             $and: [
@@ -466,11 +487,14 @@ const subscribers = async (req, res) => {
                     {
                         $match: {
                             fullname: {
-                                $regex: name_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    name_search?.toLowerCase()?.trim() || '',
                                 $options: 'i',
                             },
                             language: {
-                                $regex: language_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    language_search?.toLowerCase()?.trim() ||
+                                    '',
                                 $options: 'i',
                             },
                             $and: [
@@ -526,11 +550,14 @@ const unSubscribers = async (req, res) => {
                     {
                         $match: {
                             fullname: {
-                                $regex: name_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    name_search?.toLowerCase()?.trim() || '',
                                 $options: 'i',
                             },
                             language: {
-                                $regex: language_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    language_search?.toLowerCase()?.trim() ||
+                                    '',
                                 $options: 'i',
                             },
                             payment: { $gte: pSubscription },
@@ -561,11 +588,14 @@ const unSubscribers = async (req, res) => {
                     {
                         $match: {
                             fullname: {
-                                $regex: name_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    name_search?.toLowerCase()?.trim() || '',
                                 $options: 'i',
                             },
                             language: {
-                                $regex: language_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    language_search?.toLowerCase()?.trim() ||
+                                    '',
                                 $options: 'i',
                             },
                             payment: { $gte: pSubscription },
@@ -596,11 +626,14 @@ const unSubscribers = async (req, res) => {
                     {
                         $match: {
                             fullname: {
-                                $regex: name_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    name_search?.toLowerCase()?.trim() || '',
                                 $options: 'i',
                             },
                             language: {
-                                $regex: language_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    language_search?.toLowerCase()?.trim() ||
+                                    '',
                                 $options: 'i',
                             },
                             payment: { $gte: pSubscription },
@@ -630,11 +663,14 @@ const unSubscribers = async (req, res) => {
                     {
                         $match: {
                             fullname: {
-                                $regex: name_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    name_search?.toLowerCase()?.trim() || '',
                                 $options: 'i',
                             },
                             language: {
-                                $regex: language_search?.toLowerCase()?.trim(),
+                                $regex:
+                                    language_search?.toLowerCase()?.trim() ||
+                                    '',
                                 $options: 'i',
                             },
                             payment: { $gte: pSubscription },
