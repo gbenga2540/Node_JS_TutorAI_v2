@@ -159,8 +159,14 @@ const changePassword = async (req, res) => {
 const getAllReviews = async (req, res) => {
     try {
         const pagination_index = req.query.pagination_index;
-        const query_f_i = pagination_indexer(pagination_index, 50)?.first_index;
-        const query_l_i = pagination_indexer(pagination_index, 50)?.last_index;
+        const query_f_i = pagination_indexer(
+            pagination_index || 0,
+            50,
+        )?.first_index;
+        const query_l_i = pagination_indexer(
+            pagination_index || 0,
+            50,
+        )?.last_index;
 
         const reviews = await Review.find()
             .sort({ createdAt: -1 })
@@ -184,8 +190,14 @@ const newSignup = async (req, res) => {
             is_download,
         } = req.query;
 
-        const query_f_i = pagination_indexer(pagination_index, 50)?.first_index;
-        const query_l_i = pagination_indexer(pagination_index, 50)?.last_index;
+        const query_f_i = pagination_indexer(
+            pagination_index || 0,
+            50,
+        )?.first_index;
+        const query_l_i = pagination_indexer(
+            pagination_index || 0,
+            50,
+        )?.last_index;
 
         const pSubscription = parseInt(subscription, 10) ?? 0;
         const pSubPlan = sub_plan === '30' ? 30 : sub_plan === '60' ? 60 : 0;
@@ -355,8 +367,14 @@ const subscribers = async (req, res) => {
             is_download,
         } = req.query;
 
-        const query_f_i = pagination_indexer(pagination_index, 50)?.first_index;
-        const query_l_i = pagination_indexer(pagination_index, 50)?.last_index;
+        const query_f_i = pagination_indexer(
+            pagination_index || 0,
+            50,
+        )?.first_index;
+        const query_l_i = pagination_indexer(
+            pagination_index || 0,
+            50,
+        )?.last_index;
 
         const pSubscription = parseInt(subscription, 10) ?? 0;
         const pSubPlan = sub_plan === '30' ? 30 : sub_plan === '60' ? 60 : 0;
@@ -538,8 +556,14 @@ const unSubscribers = async (req, res) => {
             is_download,
         } = req.query;
 
-        const query_f_i = pagination_indexer(pagination_index, 50)?.first_index;
-        const query_l_i = pagination_indexer(pagination_index, 50)?.last_index;
+        const query_f_i = pagination_indexer(
+            pagination_index || 0,
+            50,
+        )?.first_index;
+        const query_l_i = pagination_indexer(
+            pagination_index || 0,
+            50,
+        )?.last_index;
 
         const pSubscription = parseInt(subscription, 10) ?? 0;
         const pSubPlan = sub_plan === '30' ? 30 : sub_plan === '60' ? 60 : 0;
