@@ -15,7 +15,7 @@ const {
 
 router.patch('/:id', update);
 
-router.post('/forgot-password/:id', forgotPassword);
+router.post('/forgot-password', forgotPassword);
 
 router.patch('/set-password/:id', setPassword);
 

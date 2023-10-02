@@ -27,7 +27,10 @@ const forgotPassword = async (req, res) => {
         if (!user) throw new ResourceNotFound('Email does not exist');
 
         const password = userIdGenerator();
-        user.password = password;
+        const salt = await bcrypt.genSalt();
+        const hash = await bcrypt.hash(password, salt);
+
+        user.password = hash;
         await user.save();
 
         await resetPasswordEmail(email, password);

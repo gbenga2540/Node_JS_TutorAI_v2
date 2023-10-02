@@ -311,8 +311,6 @@ const updatePaymentHistory = async (req, res) => {
         const ph_id = req.body.ph_id;
         const pHistory = await PaymentHistory.findById(ph_id);
 
-        console.log(ph_id);
-
         if (!pHistory) {
             res.status(200).json({ message: 'ID Not Found!' });
         } else {
@@ -321,7 +319,6 @@ const updatePaymentHistory = async (req, res) => {
             res.status(200).json({ message: 'Updated successfully!' });
         }
     } catch (err) {
-        console.log(err);
         res.status(500).json(err?.message || 'An Error Occured!');
     }
 };

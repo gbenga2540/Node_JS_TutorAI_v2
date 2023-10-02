@@ -4,20 +4,20 @@ const unsubscribeSchema = new mongoose.Schema(
     {
         fullname: {
             type: String,
-            required: true,
+            required: false,
         },
         mobile: {
             type: String,
-            required: true,
+            required: false,
             unique: false,
         },
         email: {
             type: String,
-            required: true,
+            required: false,
         },
         dateOfBirth: {
             type: Date,
-            required: true,
+            required: false,
             default: new Date(Date.now()).setFullYear(
                 new Date().getFullYear() - 15,
             ),
@@ -126,12 +126,12 @@ const unsubscribeSchema = new mongoose.Schema(
         },
         verified: {
             type: Boolean,
-            required: true,
+            required: false,
             default: false,
         },
         reason: {
             type: String,
-            required: true,
+            required: false,
         },
     },
     { timestamps: true },
