@@ -818,7 +818,7 @@ const listInvoice = async (req, res) => {
     const accessToken = await getAccessToken();
     try {
         const invoices = await axios.get(
-            'https://api-m.sandbox.paypal.com/v2/invoicing/invoices?total_required=true',
+            'https://api-m.paypal.com/v2/invoicing/invoices?total_required=true',
             {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -837,7 +837,7 @@ const sendInvoice = async (req, res) => {
     const accessToken = await getAccessToken();
     try {
         const sent = await axios.post(
-            `https://api-m.sandbox.paypal.com/v2/invoicing/invoices/${invoice_id}/send`,
+            `https://api-m.paypal.com/v2/invoicing/invoices/${invoice_id}/send`,
             {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -857,7 +857,7 @@ const getAccessToken = async () => {
         `${process.env.PAYPAL_CLIENT_ID}:${process.env.PAYPAL_CLIENT_SECRET}`,
     ).toString('base64');
     const response = await axios.post(
-        'https://api-m.sandbox.paypal.com/v1/oauth2/token',
+        'https://api-m.paypal.com/v1/oauth2/token',
         'grant_type=client_credentials',
         {
             headers: {
