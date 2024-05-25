@@ -22,7 +22,7 @@ const create = async (req, res) => {
         const { name, email, mobile, password, privilege, dp } = req.body;
 
         const result = await cloudinary.uploader.upload(dp, {
-            folder: 'profile_pics',
+            folder: 'agma-tutor-ai',
         });
 
         const salt = await bcrypt.genSalt();

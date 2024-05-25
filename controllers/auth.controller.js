@@ -14,7 +14,7 @@ const register = async (req, res) => {
         const { fullname, mobile, email, dateOfBirth, dp } = req.body;
 
         const result = await cloudinary.uploader.upload(dp, {
-            folder: 'profile_pics',
+            folder: 'agma-tutor-ai',
         });
 
         const user = new User({
