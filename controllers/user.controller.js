@@ -116,10 +116,7 @@ const changeDp = async (req, res) => {
         const user = await User.findById(req.params.id);
         if (!user) throw new ResourceNotFound('User does not exist');
 
-        await cloudinary.delete_resources([user.dp.public_id], {
-            type: 'upload',
-            resource_type: 'image',
-        });
+        await cloudinary.destroy(user.dp.public_id);
         const result = await cloudinary.uploader.upload(dp, {
             folder: 'agma_tutor_ai/',
         });
