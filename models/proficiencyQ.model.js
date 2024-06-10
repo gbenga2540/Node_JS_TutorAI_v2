@@ -33,7 +33,7 @@ const defaultProficiencyQData = [
         },
         has_image: true,
         image_link:
-            'https://res.cloudinary.com/dbpcgsyne/image/upload/v1691018854/pre_test_data/clock_test.jpg',
+            'https://res.cloudinary.com/agmadev/image/upload/v1718051148/agma_tutor_ai/vupjhx8sbbf3x705q5tl.png',
         options: [
             {
                 word: "It's two thirty.",
